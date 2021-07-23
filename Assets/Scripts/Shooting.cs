@@ -18,7 +18,7 @@ public class Shooting : MonoBehaviour
 
   private void Update()
   {
-    if (eac.makingWaves && Input.GetMouseButton(0))
+    if (eac.makingWaves && Input.GetMouseButton(0) && gcs.condition != GameControllerScript.GameCondition.EnemiesWon)
       Shoot();
     if (!eac.makingWaves && Input.GetMouseButtonDown(0) && gcs.condition == GameControllerScript.GameCondition.ActiveFase) // по умолчанию Fire1 = Ћ ћ, но если надо это можно помен€ть
     {
@@ -31,16 +31,12 @@ public class Shooting : MonoBehaviour
     // Instaniate(...) это значит заспавнить префаб пули (bulletPrefab) в позицию точки выстрела (firePosition.position)
     // и повернуть на тот же угол, на который повернута точка выстрела (firePosition.rotation)
     // это не об€зательно, но в данном случае мы сохраним получившийс€ объект в spawnedBullet чтобы потом дать ему пинка
-    //Debug.LogWarning("Shot " + firePosition.rotation.ToString());
     if (Time.timeAsDouble > previousShot + 0.07)
     {
       GameObject spawnedBullet = Instantiate(bulletPrefab, firePosition.position, firePosition.rotation);
       // добываем доступ к компоненту Rigidbody2D у новоиспеченной пули
       Rigidbody2D rigidbody = spawnedBullet.GetComponent<Rigidbody2D>();
       // даЄм пинок под зад в соответствующем направлении и с соответствующей силой
-      /*if (eac.makingWaves)
-        bulletImpulse = 20f;*/
-      //Debug.LogWarning("Force" + (firePosition.right * bulletImpulse).x.ToString());
       rigidbody.AddForce(firePosition.right * bulletImpulse, ForceMode2D.Impulse);
       gameObject.GetComponent<AudioSource>().Play();
       previousShot = Time.timeAsDouble;

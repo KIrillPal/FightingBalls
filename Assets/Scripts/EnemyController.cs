@@ -147,7 +147,6 @@ public class EnemyController : MonoBehaviour
 
   private void Update()
   {
-    //enemyBall.transform.position = gameObject.transform.position;
     if (gcs.condition != GameControllerScript.GameCondition.ActiveFase)
     {
       targeter.transform.position = gameObject.transform.position;
@@ -163,7 +162,9 @@ public class EnemyController : MonoBehaviour
         Vector3 position = player.transform.position;
         aIPath.slowdownDistance = standartSD;
         aIPath.endReachedDistance = standartERD;
-        if (player.GetComponent<PlayerMovement>().GetHealth() > health)
+        int health_diff = player.GetComponent<PlayerMovement>().GetHealth() - health;
+        // здесь определяется необходимость отсупить и найти аптечки
+        if (smartness != BotSmartness.Idiot && health_diff > 0 || health_diff > 2)
         {
           GameObject[] healerObjects = GameObject.FindGameObjectsWithTag("Healer");
           Vector3 nearest_pos = player.transform.position;
@@ -197,6 +198,7 @@ public class EnemyController : MonoBehaviour
 
       if (Time.timeAsDouble > previousShotTime + currentShootingPause)
       {
+        // здесь берётся упреждение
         playerSpeed = player.transform.position - lastPlayerPos;
         float dist = Vector3.Distance(gameObject.transform.position, player.transform.position);
         Vector3 delta = playerSpeed * (dist / (currentBulletImpulse * (float)currentShootingPause));
@@ -249,34 +251,17 @@ public class EnemyController : MonoBehaviour
     target.x += UnityEngine.Random.Range(-currentMissingRange * distance, currentMissingRange * distance);
     target.y += UnityEngine.Random.Range(-currentMissingRange * distance, currentMissingRange * distance);
     RaycastHit2D raycastHit = Physics2D.Raycast(gameObject.transform.position, GetVectorFromAngle(Vector2.Angle(gameObject.transform.position, target)), shootingDistance);
-    // if (raycastHit.collider == null) {
     Vector2 positionToLook = target - rb.position;
     float requiredAngle = Mathf.Atan2(positionToLook.y, positionToLook.x) * Mathf.Rad2Deg - 90;
-    //float angleToRotate = requiredAngle - gun.transform.rotation.z * Mathf.Rad2Deg;
-    //Debug.LogError("requiredAngle = " + requiredAngle.ToString() + "; gun.transform.rotation.z = " + gun.transform.rotation.eulerAngles.z);
-    //rb.rotation = rotateAngle;
     gun.transform.rotation = Quaternion.Euler(0, 0, requiredAngle);
     GameObject spawnedBullet = Instantiate(enemyBulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
     Rigidbody2D rigidbody = spawnedBullet.GetComponent<Rigidbody2D>();
     rigidbody.AddForce(shootingPoint.transform.up * currentBulletImpulse, ForceMode2D.Impulse);
-    //Debug.LogError("shootingPoint.transform.up = " + shootingPoint.transform.forward.ToString());
-    // } else if (!raycastHit.collider.gameObject.tag.Equals("Wall"))
-    /*{
-      Vector2 positionToLook = target - rb.position;
-      float requiredAngle = Mathf.Atan2(positionToLook.y, positionToLook.x) * Mathf.Rad2Deg - 90;
-      //float angleToRotate = requiredAngle - gun.transform.rotation.z * Mathf.Rad2Deg;
-      //Debug.LogError("requiredAngle = " + requiredAngle.ToString() + "; gun.transform.rotation.z = " + gun.transform.rotation.eulerAngles.z);
-      //rb.rotation = rotateAngle;
-      gun.transform.rotation = Quaternion.Euler(0, 0, requiredAngle);
-      GameObject spawnedBullet = Instantiate(enemyBulletPrefab, shootingPoint.transform.position, shootingPoint.transform.rotation);
-      Rigidbody2D rigidbody = spawnedBullet.GetComponent<Rigidbody2D>();
-      rigidbody.AddForce(shootingPoint.transform.up * currentBulletImpulse, ForceMode2D.Impulse);
-      //Debug.LogError("shootingPoint.transform.up = " + shootingPoint.transform.forward.ToString());
-    }*/
   }
 
   void AvoidBullets()
   {
+    // уровень реакции
     float reactionDelay = 0.05f;
     if (smartness == BotSmartness.Idiot)
       reactionDelay = 0.1f;
@@ -285,10 +270,12 @@ public class EnemyController : MonoBehaviour
       GameObject[] playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
       if (playerBullets.Length > 0)
       {
+        // расчёт функции уворота. скорость уворота определяется переменной move_left. Она может быть как положительной, так и отрицательной(движение вправо)
         float move_left = 0;
         float nearest_dist = -1, nearest_line_dist = -1, nearest_dx = 0, nearest_dy = 0;
         float myX = gameObject.transform.position.x;
         float myY = gameObject.transform.position.y;
+        // поиск самых 
         foreach (GameObject bullet in playerBullets)
         {
           float velX = bullet.GetComponent<Rigidbody2D>().velocity.x, velY = bullet.GetComponent<Rigidbody2D>().velocity.y;
@@ -315,18 +302,18 @@ public class EnemyController : MonoBehaviour
         }
         if (nearest_dist != -1 && nearest_line_dist <= 1.5 && nearest_dist < 5)
         {
+
           float motive = 2f;
           if (smartness == BotSmartness.Idiot)
           {
             motive = 0.02f;
           }
-          /* if (UnityEngine.Random.Range(0, 10) == 0)
-            {
-              move_left *= -1;
-            }*/
           float targetX = myX - nearest_dy * motive * (move_left > 0 ? 1 : -1);
           float targetY = myY - motive * (-nearest_dx) * (move_left > 0 ? 1 : -1);
           float playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().GetHealth();
+          // to_attack отвечает за умение кружить вокруг противника. 
+          // Также на больших расстояниях он работает как умение обходить противника и заходиь с неожиданной стороны
+          // Отношение (health / playerHealth) в таком случае работает как коэффициент случайности этого поведения, т.к. to_attack даёт весьма небольшой импульс
           float to_attack = 0.2f * motive * (health / playerHealth);
           targetX -= nearest_dx * to_attack;
           targetY -= nearest_dy * to_attack;

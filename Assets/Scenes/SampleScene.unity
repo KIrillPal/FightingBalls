@@ -846,18 +846,18 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 0.8
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
-  idiotSpeed: 0
+  idiotSpeed: 8
   normalBulletImpulse: 10
   normalShootingPause: 0.14
   normalMissingRange: 0.8
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -8406,8 +8406,8 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 1
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
   idiotSpeed: 8
@@ -8417,7 +8417,7 @@ MonoBehaviour:
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -12529,18 +12529,18 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 0.8
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
-  idiotSpeed: 0
+  idiotSpeed: 8
   normalBulletImpulse: 10
   normalShootingPause: 0.14
   normalMissingRange: 0.8
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -13555,18 +13555,18 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 0.8
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
-  idiotSpeed: 0
+  idiotSpeed: 8
   normalBulletImpulse: 10
   normalShootingPause: 0.14
   normalMissingRange: 0.8
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -15690,8 +15690,8 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 1
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
   idiotSpeed: 8
@@ -15701,7 +15701,7 @@ MonoBehaviour:
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -18299,8 +18299,8 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 1
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
   idiotSpeed: 8
@@ -18310,7 +18310,7 @@ MonoBehaviour:
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
@@ -19353,7 +19353,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -21393,8 +21393,8 @@ MonoBehaviour:
   runRadius: 5
   shootingDistance: 20
   idiotBulletImpulse: 10
-  idiotShootingPause: 0.3
-  idiotMissingRange: 1.2
+  idiotShootingPause: 0.14
+  idiotMissingRange: 1
   idiotGoAwayDistance: 3
   idiotPathRandom: 1
   idiotSpeed: 8
@@ -21404,7 +21404,7 @@ MonoBehaviour:
   normalGoAwayDistance: 5
   normalPathRandom: 0.5
   normalSpeed: 8
-  usatyukBulletImpulse: 35
+  usatyukBulletImpulse: 12
   usatyukShootingPause: 0.05
   usatyukMissingRange: 1.5
   usatyukGoAwayDistance: 3
