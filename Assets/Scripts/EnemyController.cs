@@ -163,7 +163,7 @@ public class EnemyController : MonoBehaviour
         aIPath.slowdownDistance = standartSD;
         aIPath.endReachedDistance = standartERD;
         int health_diff = player.GetComponent<PlayerMovement>().GetHealth() - health;
-        // здесь определяется необходимость отсупить и найти аптечки
+        // Р·РґРµСЃСЊ РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ РѕС‚СЃСѓРїРёС‚СЊ Рё РЅР°Р№С‚Рё Р°РїС‚РµС‡РєРё
         if (smartness != BotSmartness.Idiot && health_diff > 0 || health_diff > 2)
         {
           GameObject[] healerObjects = GameObject.FindGameObjectsWithTag("Healer");
@@ -198,7 +198,7 @@ public class EnemyController : MonoBehaviour
 
       if (Time.timeAsDouble > previousShotTime + currentShootingPause)
       {
-        // здесь берётся упреждение
+        // Р·РґРµСЃСЊ Р±РµСЂС‘С‚СЃСЏ СѓРїСЂРµР¶РґРµРЅРёРµ
         playerSpeed = player.transform.position - lastPlayerPos;
         float dist = Vector3.Distance(gameObject.transform.position, player.transform.position);
         Vector3 delta = playerSpeed * (dist / (currentBulletImpulse * (float)currentShootingPause));
@@ -261,7 +261,7 @@ public class EnemyController : MonoBehaviour
 
   void AvoidBullets()
   {
-    // уровень реакции
+    // СѓСЂРѕРІРµРЅСЊ СЂРµР°РєС†РёРё
     float reactionDelay = 0.05f;
     if (smartness == BotSmartness.Idiot)
       reactionDelay = 0.1f;
@@ -270,12 +270,12 @@ public class EnemyController : MonoBehaviour
       GameObject[] playerBullets = GameObject.FindGameObjectsWithTag("PlayerBullet");
       if (playerBullets.Length > 0)
       {
-        // расчёт функции уворота. скорость уворота определяется переменной move_left. Она может быть как положительной, так и отрицательной(движение вправо)
+        // СЂР°СЃС‡С‘С‚ С„СѓРЅРєС†РёРё СѓРІРѕСЂРѕС‚Р°. СЃРєРѕСЂРѕСЃС‚СЊ СѓРІРѕСЂРѕС‚Р° РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РїРµСЂРµРјРµРЅРЅРѕР№ move_left. РћРЅР° РјРѕР¶РµС‚ Р±С‹С‚СЊ РєР°Рє РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕР№, С‚Р°Рє Рё РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕР№(РґРІРёР¶РµРЅРёРµ РІРїСЂР°РІРѕ)
         float move_left = 0;
         float nearest_dist = -1, nearest_line_dist = -1, nearest_dx = 0, nearest_dy = 0;
         float myX = gameObject.transform.position.x;
         float myY = gameObject.transform.position.y;
-        // поиск самых 
+        // РїРѕРёСЃРє СЃР°РјС‹С… 
         foreach (GameObject bullet in playerBullets)
         {
           float velX = bullet.GetComponent<Rigidbody2D>().velocity.x, velY = bullet.GetComponent<Rigidbody2D>().velocity.y;
@@ -311,9 +311,9 @@ public class EnemyController : MonoBehaviour
           float targetX = myX - nearest_dy * motive * (move_left > 0 ? 1 : -1);
           float targetY = myY - motive * (-nearest_dx) * (move_left > 0 ? 1 : -1);
           float playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().GetHealth();
-          // to_attack отвечает за умение кружить вокруг противника. 
-          // Также на больших расстояниях он работает как умение обходить противника и заходиь с неожиданной стороны
-          // Отношение (health / playerHealth) в таком случае работает как коэффициент случайности этого поведения, т.к. to_attack даёт весьма небольшой импульс
+          // to_attack РѕС‚РІРµС‡Р°РµС‚ Р·Р° СѓРјРµРЅРёРµ РєСЂСѓР¶РёС‚СЊ РІРѕРєСЂСѓРі РїСЂРѕС‚РёРІРЅРёРєР°. 
+          // РўР°РєР¶Рµ РЅР° Р±РѕР»СЊС€РёС… СЂР°СЃСЃС‚РѕСЏРЅРёСЏС… РѕРЅ СЂР°Р±РѕС‚Р°РµС‚ РєР°Рє СѓРјРµРЅРёРµ РѕР±С…РѕРґРёС‚СЊ РїСЂРѕС‚РёРІРЅРёРєР° Рё Р·Р°С…РѕРґРёСЊ СЃ РЅРµРѕР¶РёРґР°РЅРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹
+          // РћС‚РЅРѕС€РµРЅРёРµ (health / playerHealth) РІ С‚Р°РєРѕРј СЃР»СѓС‡Р°Рµ СЂР°Р±РѕС‚Р°РµС‚ РєР°Рє РєРѕСЌС„С„РёС†РёРµРЅС‚ СЃР»СѓС‡Р°Р№РЅРѕСЃС‚Рё СЌС‚РѕРіРѕ РїРѕРІРµРґРµРЅРёСЏ, С‚.Рє. to_attack РґР°С‘С‚ РІРµСЃСЊРјР° РЅРµР±РѕР»СЊС€РѕР№ РёРјРїСѓР»СЊСЃ
           float to_attack = 0.2f * motive * (health / playerHealth);
           targetX -= nearest_dx * to_attack;
           targetY -= nearest_dy * to_attack;
